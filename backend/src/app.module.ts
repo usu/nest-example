@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CampsModule } from './camps/camps.module';
+import { GraphQLModule } from '@nestjs/graphql';
+
+// import { CampsModule } from './camps/camps.module';
+import { PeriodsModule } from './periods/periods.module';
 
 @Module({
   imports: [
@@ -13,7 +16,11 @@ import { CampsModule } from './camps/camps.module';
       synchronize: true,
       logging: true,
     }),
-    CampsModule,
+    GraphQLModule.forRoot({
+      autoSchemaFile: 'schema.gql',
+    }),
+    //CampsModule,
+    PeriodsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

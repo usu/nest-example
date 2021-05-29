@@ -17,7 +17,7 @@ export class Camp {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   motto: string;
 
   @CreateDateColumn()
