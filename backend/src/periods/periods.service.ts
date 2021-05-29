@@ -4,19 +4,23 @@ import { UpdatePeriodInput } from './dto/update-period.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Period } from './entities/period.entity';
+import { Camp } from '../camps/entities/camp.entity';
 
 @Injectable()
 export class PeriodsService {
   constructor(
     @InjectRepository(Period) private repository: Repository<Period>,
+    @InjectRepository(Camp) private campRepository: Repository<Camp>,
   ) {}
 
-  create(createPeriodDto: CreatePeriodInput) {
+  async create(createPeriodDto: CreatePeriodInput) {
     const period = new Period();
 
-    period.description = createPeriodDto.description;
-    period.start = createPeriodDto.start;
-    period.end = createPeriodDto.end;
+    const { description, start, end, campId } = createPeriodDto;
+    period.description = description;
+    period.start = start;
+    period.end = end;
+    period.camp = await this.campRepository.findOne(campId);
 
     return this.repository.save(period);
   }

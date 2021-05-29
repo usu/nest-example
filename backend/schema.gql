@@ -2,20 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Camp {
-  id: ID!
-  name: String!
-  title: String!
-  motto: String
-  createTime: DateTime!
-  updateTime: DateTime!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Period {
   id: ID!
   description: String
@@ -25,6 +11,22 @@ type Period {
 
   """End date of the period"""
   end: DateTime!
+  camp: Camp!
+  createTime: DateTime!
+  updateTime: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Camp {
+  id: ID!
+  name: String!
+  title: String!
+  motto: String
+  periods: [Period!]!
   createTime: DateTime!
   updateTime: DateTime!
 }
@@ -61,10 +63,12 @@ input CreatePeriodInput {
   description: String
   start: DateTime!
   end: DateTime!
+  campId: Float!
 }
 
 input UpdatePeriodInput {
   description: String
   start: DateTime
   end: DateTime
+  campId: Float
 }

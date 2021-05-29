@@ -5,4 +5,5 @@ export class CreatePeriodInput {
   description?: string;
   start: Date;
   end: Date;
+  campId: number;
 }
