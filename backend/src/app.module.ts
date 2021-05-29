@@ -9,7 +9,7 @@ import { CampsModule } from './camps/camps.module';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: './data/database.sqlite',
-      entities: [],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: true,
     }),
