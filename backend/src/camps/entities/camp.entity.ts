@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity()
 export class Camp {
+  @Field((type) => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,7 +21,7 @@ export class Camp {
   title: string;
 
   @Column({ nullable: true })
-  motto: string;
+  motto?: string;
 
   @CreateDateColumn()
   createTime: Date;

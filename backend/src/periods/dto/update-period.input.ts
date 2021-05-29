@@ -1,8 +1,5 @@
 import { CreatePeriodInput } from './create-period.input';
-import { InputType, Field, PartialType } from '@nestjs/graphql';
+import { InputType, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdatePeriodInput extends PartialType(CreatePeriodInput) {
-  @Field()
-  id: number;
-}
+export class UpdatePeriodInput extends PartialType(CreatePeriodInput) {}

@@ -27,9 +27,10 @@ export class PeriodsResolver {
 
   @Mutation(() => Period)
   updatePeriod(
+    @Args('id') id: number,
     @Args('updatePeriodInput') updatePeriodInput: UpdatePeriodInput,
   ) {
-    return this.periodsService.update(updatePeriodInput.id, updatePeriodInput);
+    return this.periodsService.update(id, updatePeriodInput);
   }
 
   @Mutation(() => Period)

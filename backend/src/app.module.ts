@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 
-// import { CampsModule } from './camps/camps.module';
+import { CampsModule } from './camps/camps.module';
 import { PeriodsModule } from './periods/periods.module';
 
 @Module({
@@ -19,7 +19,7 @@ import { PeriodsModule } from './periods/periods.module';
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
-    //CampsModule,
+    CampsModule,
     PeriodsModule,
   ],
   controllers: [AppController],

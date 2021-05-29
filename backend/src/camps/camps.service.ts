@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCampDto } from './dto/create-camp.dto';
-import { UpdateCampDto } from './dto/update-camp.dto';
+import { CreateCampInput } from './dto/create-camp.input';
+import { UpdateCampInput } from './dto/update-camp.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Camp } from './entities/camp.entity';
@@ -9,12 +9,12 @@ import { Camp } from './entities/camp.entity';
 export class CampsService {
   constructor(@InjectRepository(Camp) private repository: Repository<Camp>) {}
 
-  create(createCampDto: CreateCampDto) {
+  create(createCampInput: CreateCampInput) {
     const camp = new Camp();
 
-    camp.name = createCampDto.name;
-    camp.title = createCampDto.title;
-    camp.motto = createCampDto.motto;
+    camp.name = createCampInput.name;
+    camp.title = createCampInput.title;
+    camp.motto = createCampInput.motto;
 
     return this.repository.save(camp);
   }
@@ -23,20 +23,20 @@ export class CampsService {
     return this.repository.find();
   }
 
-  findOne(id: string): Promise<Camp> {
+  findOne(id: number): Promise<Camp> {
     return this.repository.findOne(id);
   }
 
-  async update(id: string, updateCampDto: UpdateCampDto) {
+  async update(id: number, updateCampInput: UpdateCampInput) {
     const camp = await this.repository.findOne(id);
 
-    Object.assign(camp, updateCampDto);
+    Object.assign(camp, updateCampInput);
     await this.repository.save(camp);
 
     return camp;
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.repository.delete(id);
   }
 }

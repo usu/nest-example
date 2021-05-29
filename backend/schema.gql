@@ -2,11 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Period {
-  id: Float!
-  description: String!
-  start: DateTime!
-  end: DateTime!
+type Camp {
+  id: ID!
+  name: String!
+  title: String!
+  motto: String
   createTime: DateTime!
   updateTime: DateTime!
 }
@@ -16,19 +16,49 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Period {
+  id: ID!
+  description: String
+
+  """Start date of the period"""
+  start: DateTime!
+
+  """End date of the period"""
+  end: DateTime!
+  createTime: DateTime!
+  updateTime: DateTime!
+}
+
 type Query {
+  camps: [Camp!]!
+  camp(id: Int!): Camp!
   periods: [Period!]!
   period(id: Int!): Period!
 }
 
 type Mutation {
+  createCamp(createCampInput: CreateCampInput!): Camp!
+  updateCamp(updateCampInput: UpdateCampInput!, id: Float!): Camp!
+  removeCamp(id: Int!): Camp!
   createPeriod(createPeriodInput: CreatePeriodInput!): Period!
-  updatePeriod(updatePeriodInput: UpdatePeriodInput!): Period!
+  updatePeriod(updatePeriodInput: UpdatePeriodInput!, id: Float!): Period!
   removePeriod(id: Int!): Period!
 }
 
+input CreateCampInput {
+  name: String!
+  title: String!
+  motto: String
+}
+
+input UpdateCampInput {
+  name: String
+  title: String
+  motto: String
+}
+
 input CreatePeriodInput {
-  description: String!
+  description: String
   start: DateTime!
   end: DateTime!
 }
@@ -37,5 +67,4 @@ input UpdatePeriodInput {
   description: String
   start: DateTime
   end: DateTime
-  id: Float!
 }

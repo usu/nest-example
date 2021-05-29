@@ -8,16 +8,16 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CampsService } from './camps.service';
-import { CreateCampDto } from './dto/create-camp.dto';
-import { UpdateCampDto } from './dto/update-camp.dto';
+import { CreateCampInput } from './dto/create-camp.input';
+import { UpdateCampInput } from './dto/update-camp.input';
 
 @Controller('camps')
 export class CampsController {
   constructor(private readonly campsService: CampsService) {}
 
   @Post()
-  create(@Body() createCampDto: CreateCampDto) {
-    return this.campsService.create(createCampDto);
+  create(@Body() createCampInput: CreateCampInput) {
+    return this.campsService.create(createCampInput);
   }
 
   @Get()
@@ -27,16 +27,16 @@ export class CampsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.campsService.findOne(id);
+    return this.campsService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCampDto: UpdateCampDto) {
-    return this.campsService.update(id, updateCampDto);
+  update(@Param('id') id: string, @Body() updateCampInput: UpdateCampInput) {
+    return this.campsService.update(+id, updateCampInput);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.campsService.remove(id);
+    return this.campsService.remove(+id);
   }
 }

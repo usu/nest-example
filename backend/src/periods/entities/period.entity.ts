@@ -5,32 +5,33 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
 @Entity()
 export class Period {
-  @Field()
+  @Field((type) => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
   @Column({ nullable: true })
   description?: string;
 
-  @Field()
+  /**
+   * Start date of the period
+   */
   @Column('date')
   start: Date;
 
-  @Field()
+  /**
+   *  End date of the period
+   */
   @Column('date')
   end: Date;
 
-  @Field()
   @CreateDateColumn()
   createTime: Date;
 
-  @Field()
   @UpdateDateColumn()
   updateTime: Date;
 }
