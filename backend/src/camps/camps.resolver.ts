@@ -1,12 +1,24 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { CampsService } from './camps.service';
+import { PeriodsService } from '../periods/periods.service';
 import { Camp } from './entities/camp.entity';
 import { CreateCampInput } from './dto/create-camp.input';
 import { UpdateCampInput } from './dto/update-camp.input';
 
 @Resolver(() => Camp)
 export class CampsResolver {
-  constructor(private readonly campsService: CampsService) {}
+  constructor(
+    private readonly campsService: CampsService,
+    private readonly periodsService: PeriodsService,
+  ) {}
 
   @Mutation(() => Camp)
   createCamp(@Args('createCampInput') createCampInput: CreateCampInput) {
@@ -21,6 +33,12 @@ export class CampsResolver {
   @Query(() => Camp, { name: 'camp' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.campsService.findOne(id);
+  }
+
+  @ResolveField()
+  async periods(@Parent() camp: Camp) {
+    const { id } = camp;
+    return await this.periodsService.findByCamp(id);
   }
 
   @Mutation(() => Camp)

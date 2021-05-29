@@ -7,10 +7,10 @@ type Period {
   description: String
 
   """Start date of the period"""
-  start: DateTime!
+  start: DateTime
 
   """End date of the period"""
-  end: DateTime!
+  end: DateTime
   camp: Camp!
   createTime: DateTime!
   updateTime: DateTime!

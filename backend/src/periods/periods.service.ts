@@ -33,10 +33,20 @@ export class PeriodsService {
     return this.repository.findOne(id);
   }
 
+  findByCamp(campId: number): Promise<Period[]> {
+    return this.repository.find({
+      where: {
+        camp: campId,
+      },
+      relations: ['camp'],
+    });
+  }
+
   async update(id: number, updatePeriodDto: UpdatePeriodInput) {
     const period = await this.repository.findOne(id);
 
     Object.assign(period, updatePeriodDto);
+    console.log(period);
     await this.repository.save(period);
 
     return period;

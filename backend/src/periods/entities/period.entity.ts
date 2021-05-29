@@ -23,14 +23,12 @@ export class Period {
   /**
    * Start date of the period
    */
-  @Column('date')
-  start: Date;
+  start?: Date;
 
   /**
    *  End date of the period
    */
-  @Column('date')
-  end: Date;
+  end?: Date;
 
   @ManyToOne(() => Camp, (camp) => camp.periods, {
     nullable: false,
